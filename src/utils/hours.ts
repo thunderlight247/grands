@@ -39,7 +39,26 @@ export function isRestaurantOpen(
   return current >= opens || current < closes;
 }
 
-function formatClock(hhmm: string): string {
+/**
+ * Minutes left until closing, or null while closed. Accounts for closing
+ * times after midnight.
+ */
+export function minutesUntilClose(
+  now: Date = new Date(),
+  hours: OpeningHours = businessInfo.hours,
+): number | null {
+  if (!isRestaurantOpen(now, hours)) return null;
+  const current = minutesInTimeZone(now, hours.timeZone);
+  const closes = toMinutes(hours.closes);
+  return (closes - current + 24 * 60) % (24 * 60);
+}
+
+/** "8:00 AM – 12:30 AM" style range built from the opening hours. */
+export function formatHoursRange(hours: OpeningHours = businessInfo.hours): string {
+  return `${formatClock(hours.opens)} – ${formatClock(hours.closes)}`;
+}
+
+export function formatClock(hhmm: string): string {
   const total = toMinutes(hhmm);
   const h24 = Math.floor(total / 60);
   const m = total % 60;

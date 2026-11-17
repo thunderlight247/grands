@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Fraunces, Geist } from "next/font/google";
 import "./globals.css";
 import { businessInfo } from "@/data/businessInfo";
 import { CartProvider } from "@/context/CartContext";
@@ -11,10 +11,17 @@ const geistSans = Geist({
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const fraunces = Fraunces({
+  variable: "--font-fraunces",
   subsets: ["latin"],
+  axes: ["opsz", "SOFT"],
 });
+
+if (process.env.NODE_ENV === "production" && !process.env.NEXT_PUBLIC_SITE_URL) {
+  console.warn(
+    "[grand-gees] NEXT_PUBLIC_SITE_URL is not set. Canonical links, Open Graph tags, the sitemap and JSON-LD will point to http://localhost:3000.",
+  );
+}
 
 const title = `${businessInfo.name} | ${businessInfo.tagline}`;
 
@@ -42,34 +49,26 @@ export const metadata: Metadata = {
     siteName: businessInfo.name,
     title,
     description: businessInfo.description,
-    images: [
-      {
-        url: "/images/hero-mixed-platter.jpg",
-        width: 720,
-        height: 718,
-        alt: "Grand Gees mixed platter with jollof, fried rice, plantain and chicken",
-      },
-    ],
+    // Image comes from src/app/opengraph-image.tsx (1200×630).
   },
   twitter: {
     card: "summary_large_image",
     title,
     description: businessInfo.description,
-    images: ["/images/hero-mixed-platter.jpg"],
   },
   formatDetection: { telephone: true },
 };
 
 export const viewport: Viewport = {
-  themeColor: "#fafafa",
+  themeColor: "#fafaf9",
   width: "device-width",
   initialScale: 1,
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en-GH" className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-      <body className="min-h-dvh bg-neutral-50 font-sans text-neutral-900">
+    <html lang="en-GH" className={`${geistSans.variable} ${fraunces.variable} antialiased`}>
+      <body className="min-h-dvh bg-stone-50 font-sans text-stone-900">
         <RestaurantSchema />
         <SmoothScroll>
           <CartProvider>{children}</CartProvider>

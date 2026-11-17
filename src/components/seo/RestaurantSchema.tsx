@@ -1,5 +1,5 @@
 import { businessInfo } from "@/data/businessInfo";
-import { menuItems } from "@/data/menuData";
+import { MENU_CATEGORIES, menuItems } from "@/data/menuData";
 
 interface OpeningHoursSpecification {
   "@type": "OpeningHoursSpecification";
@@ -20,7 +20,6 @@ interface RestaurantJsonLd {
   priceRange: string;
   currenciesAccepted: string;
   servesCuisine: string[];
-  acceptsReservations: boolean;
   hasMap: string;
   address: {
     "@type": "PostalAddress";
@@ -32,7 +31,26 @@ interface RestaurantJsonLd {
   geo: { "@type": "GeoCoordinates"; latitude: number; longitude: number };
   openingHoursSpecification: OpeningHoursSpecification[];
   amenityFeature: { "@type": "LocationFeatureSpecification"; name: string; value: boolean }[];
+  hasMenu: {
+    "@type": "Menu";
+    url: string;
+    inLanguage: string;
+    hasMenuSection: {
+      "@type": "MenuSection";
+      name: string;
+      hasMenuItem: {
+        "@type": "MenuItem";
+        name: string;
+        description: string;
+        image: string;
+        offers: { "@type": "Offer"; price: string; priceCurrency: string; availability: string };
+      }[];
+    }[];
+  };
 }
+
+/** Amenities are physical services; ordering channels are not amenities. */
+const NON_AMENITY_SERVICES = new Set(["WhatsApp Ordering"]);
 
 function buildSchema(): RestaurantJsonLd {
   const site = businessInfo.siteUrl.replace(/\/$/, "");
@@ -50,7 +68,6 @@ function buildSchema(): RestaurantJsonLd {
     priceRange: businessInfo.priceRangeSchema,
     currenciesAccepted: businessInfo.currency,
     servesCuisine: [...businessInfo.cuisines],
-    acceptsReservations: true,
     hasMap: businessInfo.googleMapsUrl,
     address: {
       "@type": "PostalAddress",
@@ -73,11 +90,36 @@ function buildSchema(): RestaurantJsonLd {
         closes: hours.closes,
       },
     ],
-    amenityFeature: businessInfo.services.map((service) => ({
-      "@type": "LocationFeatureSpecification",
-      name: service,
-      value: true,
-    })),
+    amenityFeature: businessInfo.services
+      .filter((service) => !NON_AMENITY_SERVICES.has(service))
+      .map((service) => ({
+        "@type": "LocationFeatureSpecification",
+        name: service,
+        value: true,
+      })),
+    hasMenu: {
+      "@type": "Menu",
+      url: `${site}/#menu`,
+      inLanguage: "en",
+      hasMenuSection: MENU_CATEGORIES.map((category) => ({
+        "@type": "MenuSection" as const,
+        name: category,
+        hasMenuItem: menuItems
+          .filter((item) => item.category === category)
+          .map((item) => ({
+            "@type": "MenuItem" as const,
+            name: item.name,
+            description: item.description,
+            image: `${site}${item.image}`,
+            offers: {
+              "@type": "Offer" as const,
+              price: item.price.toFixed(2),
+              priceCurrency: businessInfo.currency,
+              availability: item.available ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
+            },
+          })),
+      })).filter((section) => section.hasMenuItem.length > 0),
+    },
   };
 }
 

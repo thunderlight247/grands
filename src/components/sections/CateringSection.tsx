@@ -27,7 +27,7 @@ const INITIAL: CateringForm = {
 };
 
 const inputClass =
-  "w-full rounded-xl border border-neutral-200/80 bg-white px-3.5 py-2.5 text-sm text-neutral-900 placeholder:text-neutral-400 transition focus:border-neutral-400 focus:outline-none focus:ring-2 focus:ring-neutral-900/10 aria-[invalid=true]:border-red-300";
+  "w-full rounded-xl border border-stone-200/80 bg-white px-3.5 py-2.5 text-sm text-stone-900 placeholder:text-stone-400 transition focus:border-stone-400 focus:outline-none focus:ring-2 focus:ring-stone-900/10 aria-[invalid=true]:border-red-300";
 
 function todayISO(): string {
   // Event dates are compared in Ghana time (GMT, no daylight saving).
@@ -117,7 +117,7 @@ export default function CateringSection() {
     const errorId = `catering-${name}-error`;
     return (
       <div>
-        <label htmlFor={`catering-${name}`} className="mb-1.5 block text-sm font-medium text-neutral-900">
+        <label htmlFor={`catering-${name}`} className="mb-1.5 block text-sm font-medium text-stone-900">
           {label}
         </label>
         <input
@@ -143,29 +143,29 @@ export default function CateringSection() {
     <section ref={ref} id="catering" aria-labelledby="catering-title" className="scroll-mt-20 py-16 lg:py-24">
       <div className="mx-auto grid max-w-6xl gap-12 px-4 sm:px-6 lg:grid-cols-12">
         <div className="lg:col-span-5">
-          <p data-reveal className="text-xs font-medium uppercase tracking-[0.2em] text-neutral-400">
+          <p data-reveal className="text-xs font-medium uppercase tracking-[0.2em] text-brand-600">
             Event catering
           </p>
           <h2
             data-reveal
             id="catering-title"
-            className="mt-3 text-3xl font-semibold tracking-[-0.02em] text-neutral-900 sm:text-4xl"
+            className="mt-3 text-3xl font-semibold tracking-[-0.02em] text-stone-900 sm:text-4xl"
           >
             Weddings, birthdays, office lunches: we bring the pots.
           </h2>
-          <p data-reveal className="mt-4 text-base leading-relaxed text-neutral-500">
+          <p data-reveal className="mt-4 text-base leading-relaxed text-stone-500">
             Bulk platters of jollof, fried rice, soups and swallow for private events across Bortianor,
             Kokrobite, Weija and greater Accra. Tell us about your event and we&apos;ll send a quote on
             WhatsApp.
           </p>
 
-          <ul data-reveal className="mt-6 space-y-3 text-sm text-neutral-600">
+          <ul data-reveal className="mt-6 space-y-3 text-sm text-stone-600">
             <li className="flex items-center gap-3">
-              <Users className="size-4 text-neutral-400" aria-hidden="true" />
+              <Users className="size-4 text-stone-400" aria-hidden="true" />
               From 10 to several hundred guests
             </li>
             <li className="flex items-center gap-3">
-              <CalendarDays className="size-4 text-neutral-400" aria-hidden="true" />
+              <CalendarDays className="size-4 text-stone-400" aria-hidden="true" />
               Book at least 3 days ahead for large events
             </li>
           </ul>
@@ -175,7 +175,7 @@ export default function CateringSection() {
             {GALLERY.map((photo) => (
               <div
                 key={photo.src}
-                className={`relative overflow-hidden rounded-2xl border border-neutral-200/60 bg-neutral-100 ${photo.className}`}
+                className={`relative overflow-hidden rounded-2xl border border-stone-200/60 bg-stone-100 ${photo.className}`}
               >
                 <Image src={photo.src} alt={photo.alt} fill sizes={photo.sizes} className="object-cover" />
               </div>
@@ -188,10 +188,10 @@ export default function CateringSection() {
             data-reveal
             onSubmit={handleSubmit}
             noValidate
-            className="rounded-3xl border border-neutral-200/60 bg-white p-5 sm:p-8"
+            className="rounded-3xl border border-stone-200/60 bg-white p-5 sm:p-8"
           >
-            <h3 className="text-lg font-semibold tracking-tight text-neutral-900">Request a catering quote</h3>
-            <p className="mt-1 text-sm text-neutral-500">Opens WhatsApp with your details filled in.</p>
+            <h3 className="text-lg font-semibold tracking-tight text-stone-900">Request a catering quote</h3>
+            <p className="mt-1 text-sm text-stone-500">Opens WhatsApp with your details filled in.</p>
 
             <div className="mt-6 grid gap-4 sm:grid-cols-2">
               {field("fullName", "Full name", { autoComplete: "name", placeholder: "Abena Owusu" })}
@@ -213,8 +213,8 @@ export default function CateringSection() {
                 {field("eventLocation", "Event location", { placeholder: "Venue, area or landmark" })}
               </div>
               <div className="sm:col-span-2">
-                <label htmlFor="catering-notes" className="mb-1.5 block text-sm font-medium text-neutral-900">
-                  Preferred dishes / notes <span className="font-normal text-neutral-400">(optional)</span>
+                <label htmlFor="catering-notes" className="mb-1.5 block text-sm font-medium text-stone-900">
+                  Preferred dishes / notes <span className="font-normal text-stone-400">(optional)</span>
                 </label>
                 <textarea
                   id="catering-notes"
@@ -230,12 +230,12 @@ export default function CateringSection() {
 
             <button
               type="submit"
-              className="mt-6 flex h-12 w-full items-center justify-center gap-2 rounded-full bg-neutral-900 text-sm font-semibold text-neutral-50 transition hover:bg-neutral-700 active:scale-[0.99] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neutral-900 sm:w-auto sm:px-8"
+              className="mt-6 flex h-12 w-full items-center justify-center gap-2 rounded-full bg-brand-600 text-sm font-semibold text-white transition hover:bg-brand-700 active:scale-[0.99] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-stone-900 sm:w-auto sm:px-8"
             >
               <MessageCircle className="size-4" aria-hidden="true" />
               Send enquiry on WhatsApp
             </button>
-            <p role="status" className="mt-3 text-sm text-neutral-500">
+            <p role="status" className="mt-3 text-sm text-stone-500">
               {sent ? "WhatsApp opened in a new tab. Press send there and we'll reply with a quote." : ""}
             </p>
           </form>

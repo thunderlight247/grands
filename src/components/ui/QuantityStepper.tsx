@@ -23,23 +23,23 @@ export default function QuantityStepper({
       : "size-10";
 
   return (
-    <div className="inline-flex items-center rounded-full border border-neutral-200/60 bg-neutral-50">
+    <div className="inline-flex items-center rounded-full border border-stone-200/60 bg-stone-50">
       <button
         type="button"
         onClick={onDecrement}
         aria-label={`Remove one ${itemName}`}
-        className={`${button} grid place-items-center rounded-full text-neutral-700 transition hover:bg-neutral-200/60 active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neutral-900`}
+        className={`${button} grid place-items-center rounded-full text-stone-700 transition hover:bg-stone-200/60 active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-stone-900`}
       >
         <Minus className="size-4" aria-hidden="true" />
       </button>
-      <span className="min-w-8 text-center text-sm font-semibold tabular-nums text-neutral-900" aria-live="polite">
+      <span className="min-w-8 text-center text-sm font-semibold tabular-nums text-stone-900" aria-live="polite">
         {quantity}
       </span>
       <button
         type="button"
         onClick={onIncrement}
         aria-label={`Add one more ${itemName}`}
-        className={`${button} grid place-items-center rounded-full text-neutral-700 transition hover:bg-neutral-200/60 active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neutral-900`}
+        className={`${button} grid place-items-center rounded-full text-stone-700 transition hover:bg-stone-200/60 active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-stone-900`}
       >
         <Plus className="size-4" aria-hidden="true" />
       </button>

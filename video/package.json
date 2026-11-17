@@ -1,0 +1,39 @@
+{
+  "name": "grand-gees-hero-video",
+  "version": "1.0.0",
+  "description": "3D hero background video for the Grand Gees website",
+  "repository": {},
+  "license": "UNLICENSED",
+  "engines": {
+    "node": "^20.19.0 || ^22.13.0 || >=24"
+  },
+  "private": true,
+  "dependencies": {
+    "@react-three/fiber": "9.8.2",
+    "@remotion/cli": "4.0.544",
+    "@remotion/three": "4.0.544",
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
+    "remotion": "4.0.544",
+    "three": "0.187.0"
+  },
+  "devDependencies": {
+    "@remotion/eslint-config-flat": "4.0.544",
+    "@types/react": "19.3.0",
+    "@types/three": "^0.187.0",
+    "@types/web": "0.0.166",
+    "eslint": "10.12.0",
+    "prettier": "3.8.1",
+    "typescript": "5.9.3"
+  },
+  "scripts": {
+    "dev": "remotion studio",
+    "build": "remotion bundle",
+    "upgrade": "remotion upgrade",
+    "lint": "eslint src && tsc",
+    "render:hero": "remotion render HeroFood3D ../public/videos/hero-food-3d.mp4 --gl=swangle --codec=h264 --crf=25 --muted --concurrency=2 && remotion still HeroFood3D ../public/videos/hero-food-3d-poster.jpg --frame=0 --gl=swangle --image-format=jpeg --jpeg-quality=82"
+  },
+  "allowScripts": {
+    "esbuild": false
+  }
+}

@@ -3,7 +3,33 @@
 
 @theme inline {
   --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-display: var(--font-fraunces);
+}
+
+/*
+ * Brand accent: a warm palm-oil terracotta. Used for primary actions, active
+ * states and highlights. White text on brand-600 passes WCAG AA (4.7:1).
+ * Neutrals use Tailwind's warm `stone` scale.
+ */
+@theme {
+  --color-brand-50: #fdf5ee;
+  --color-brand-100: #fae6d4;
+  --color-brand-200: #f4c9a6;
+  --color-brand-300: #eca577;
+  --color-brand-400: #e37f4a;
+  --color-brand-500: #d9622b;
+  --color-brand-600: #c2501f;
+  --color-brand-700: #9e3f19;
+  --color-brand-800: #7f3317;
+  --color-brand-900: #452010;
+}
+
+@layer base {
+  h1,
+  h2 {
+    font-family: var(--font-display);
+    font-optical-sizing: auto;
+  }
 }
 
 /* Lenis base styles (https://github.com/darkroomengineering/lenis) */

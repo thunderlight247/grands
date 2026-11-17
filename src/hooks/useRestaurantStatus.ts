@@ -1,9 +1,12 @@
 "use client";
 
 import { useSyncExternalStore } from "react";
-import { isRestaurantOpen } from "@/utils/hours";
+import { minutesUntilClose } from "@/utils/hours";
 
-export type RestaurantStatus = "open" | "closed" | "unknown";
+export type RestaurantStatus = "open" | "closing-soon" | "closed" | "unknown";
+
+/** Show "Closing soon" during the last half hour before closing. */
+export const CLOSING_SOON_MINUTES = 30;
 
 const CHECK_INTERVAL_MS = 30_000;
 
@@ -17,7 +20,9 @@ function subscribe(onChange: () => void) {
 }
 
 function getSnapshot(): RestaurantStatus {
-  return isRestaurantOpen() ? "open" : "closed";
+  const left = minutesUntilClose();
+  if (left === null) return "closed";
+  return left <= CLOSING_SOON_MINUTES ? "closing-soon" : "open";
 }
 
 // The server can't know the visitor's clock, so the server render and the
